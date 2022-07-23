@@ -71,7 +71,7 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       console.log("sumbitted");
 
       if (this.username === "") {
@@ -87,12 +87,14 @@ export default {
       }
 
       if (!this.errors.length) {
+        this.$store.commit("setIsLoading", true);
+
         const formData = {
           username: this.username,
           password: this.password1,
         };
 
-        axios
+        await axios
           .post("/api/v1/users/", formData)
           .then((response) => {
             toast({
@@ -117,6 +119,7 @@ export default {
               this.errors.push("Something went wrong. Please try again!");
             }
           });
+        this.$store.commit("setIsLoading", false);
       }
     },
   },
