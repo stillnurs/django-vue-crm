@@ -1,15 +1,17 @@
 <template>
-  <Navbar />
+  <div>
+    <Navbar />
 
-  <div
-    class="is-loading-bar has-text-centered"
-    v-bind:class="{ 'is-loading': $store.state.isLoading }"
-  >
-    <div class="lds-dual-ring"></div>
+    <div
+      class="is-loading-bar has-text-centered"
+      v-bind:class="{ 'is-loading': $store.state.isLoading }"
+    >
+      <div class="lds-dual-ring"></div>
+    </div>
+    <section class="section">
+      <router-view />
+    </section>
   </div>
-  <section class="section">
-    <router-view />
-  </section>
 </template>
 <script>
 import Navbar from "@/components/layout/Navbar.vue";
@@ -24,8 +26,7 @@ export default {
     this.$store.commit("initializeStore");
 
     if (this.$store.state.token) {
-      axios.defaults.headers.common["Authorization"] =
-        "Token " + this.$store.state.token;
+      axios.defaults.headers.common["Authorization"] = "Token " + this.$store.state.token;
     } else {
       axios.defaults.headers.common["Authorization"] = "";
     }
@@ -37,7 +38,7 @@ export default {
 @import "../node_modules/bulma";
 
 .lds-dual-ring {
-  display: inline;
+  display: inline-block;
   width: 80px;
   height: 80px;
 }
@@ -73,4 +74,5 @@ export default {
     height: 80px;
   }
 }
-</style>;
+</style>
+;
